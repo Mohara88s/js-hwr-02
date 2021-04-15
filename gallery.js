@@ -53,7 +53,7 @@ function onGalleryImageClick(event) {
   lightboxImage.setAttribute('src', `${event.target.dataset.source}`)
   lightboxImage.setAttribute('alt', `${event.target.getAttribute('alt')}`)
 
-  window.addEventListener('keydown', onKaydown)
+  window.addEventListener('keydown', onKeydown)
   lightboxContainer.addEventListener('click', onLightboxCloseClick)
 }
 
@@ -63,7 +63,7 @@ function lightboxClose() {
   lightboxImage.setAttribute('src', '')
   lightboxImage.setAttribute('alt', '')
 
-  window.removeEventListener('keydown', onKaydown)
+  window.removeEventListener('keydown', onKeydown)
   lightboxContainer.removeEventListener('click', onLightboxCloseClick)
 }
 
@@ -74,25 +74,25 @@ function onLightboxCloseClick(event) {
 }
 
 // onKaydown
-function onKaydown(event) {
+function onKeydown(event) {
   if (event.code === 'Escape') {
     lightboxClose()
   }
   if (event.code === 'ArrowRight') {
-    onArrowRightKaydown()
+    onArrowRightKeydown()
   }
   if (event.code === 'ArrowLeft') {
-    onArrowLeftKaydown()
+    onArrowLeftKeydown()
   }
 }
 
 //arrows
-function onArrowRightKaydown() {
+function onArrowRightKeydown() {
   let i = currentLightboxImageIndex() + 1
   if (i === atributesSource.length) { i = 0 }
   setChangesToLightboxImage(i)
 }
-function onArrowLeftKaydown() {
+function onArrowLeftKeydown() {
   let i = currentLightboxImageIndex() - 1
   if (i === -1) { i = atributesSource.length - 1}
   setChangesToLightboxImage(i)
