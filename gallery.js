@@ -16,7 +16,6 @@ import atributesSource from './gallery-items.js'
 const galleryContainer = document.querySelector('ul.js-gallery')
 const lightboxContainer = document.querySelector('.js-lightbox')
 const lightboxImage = document.querySelector('img.lightbox__image')
-const lightboxCloseButton = document.querySelector('button[data-action="close-lightbox"]')
 
 //creating markup
 const galleryMarkup = createImages(atributesSource)
@@ -43,7 +42,7 @@ function createImages(images) {
 //none linking
 galleryContainer.addEventListener('click', stopDefAction)
 function stopDefAction(evt) {
-    evt.preventDefault();
+  evt.preventDefault();
 }
 
 //to open modal
@@ -55,8 +54,7 @@ function onGalleryImageClick(event) {
   lightboxImage.setAttribute('alt', `${event.target.getAttribute('alt')}`)
 
   window.addEventListener('keydown', onKaydown)
-  lightboxCloseButton.addEventListener('click', onLightboxCloseButtoClick)
-  lightboxContainer.addEventListener('click', onLightboxOverlayClick)
+  lightboxContainer.addEventListener('click', onLightboxCloseClick)
 }
 
 //to close modal
@@ -66,16 +64,13 @@ function lightboxClose() {
   lightboxImage.setAttribute('alt', '')
 
   window.removeEventListener('keydown', onKaydown)
-  lightboxCloseButton.removeEventListener('click', onLightboxCloseButtoClick)
-  lightboxContainer.removeEventListener('click', onLightboxOverlayClick)
+  lightboxContainer.removeEventListener('click', onLightboxCloseClick)
 }
 
 //onClick
-function onLightboxCloseButtoClick() {
-  lightboxClose()
-}
-function onLightboxOverlayClick(event) {
-  if (event.target.classList.contains('lightbox__overlay')) {lightboxClose()}
+function onLightboxCloseClick(event) {
+  if (event.target.classList.contains('lightbox__overlay')) {lightboxClose() }
+  if (event.target.classList.contains('lightbox__button')) {lightboxClose() }
 }
 
 // onKaydown
@@ -92,18 +87,20 @@ function onKaydown(event) {
 }
 
 //arrows
-function lightboxImageIndex() {
-  return atributesSource.indexOf(atributesSource.find(element => element.original === lightboxImage.src))
-}
 function onArrowRightKaydown() {
-  let i = lightboxImageIndex() + 1
+  let i = currentLightboxImageIndex() + 1
   if (i === atributesSource.length) { i = 0 }
-  lightboxImage.setAttribute('src', atributesSource[i].original)
-  lightboxImage.setAttribute('alt', atributesSource[i].description)
+  setChangesToLightbox(i)
 }
 function onArrowLeftKaydown() {
-  let i = lightboxImageIndex() - 1
+  let i = currentLightboxImageIndex() - 1
   if (i === -1) { i = atributesSource.length - 1}
-  lightboxImage.setAttribute('src', atributesSource[i].original)
-  lightboxImage.setAttribute('alt', atributesSource[i].description)
+  setChangesToLightbox(i)
+}
+function currentLightboxImageIndex() {
+  return atributesSource.indexOf(atributesSource.find(element => element.original === lightboxImage.src))
+}
+function setChangesToLightbox(index) {
+  lightboxImage.setAttribute('src', atributesSource[index].original)
+  lightboxImage.setAttribute('alt', atributesSource[index].description)
  }
