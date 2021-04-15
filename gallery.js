@@ -9,22 +9,20 @@
 import atributesSource from './gallery-items.js'
 console.log(atributesSource)
 
-const galleryContainer = document.querySelector('.js-gallery')
-console.log(galleryContainer)
+const galleryContainer = document.querySelector('ul.js-gallery')
+const lightboxContainer = document.querySelector('.js-lightbox')
+const lightboxImage = document.querySelector('img.lightbox__image')
+const lightboxCloseButton = document.querySelector('button[data-action="close-lightbox"]')
+
 const galleryMarkup = createImages(atributesSource)
-
-
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup)
-
-
-
 function createImages(images) {
     return images.map(({preview, original, description}) => {
         return `
     <li class="gallery__item">
-  <div
+  <a
     class="gallery__link"
-    href=""
+    href="${original}"
   >
     <img
       class="gallery__image"
@@ -32,16 +30,27 @@ function createImages(images) {
       data-source="${original}"
       alt="${description}"
     />
-  </div>
+  </a>
 </li>
 `}).join('')
 }
 
+galleryContainer.addEventListener('click', stopDefAction)
+function stopDefAction(evt) {
+    evt.preventDefault();
+}
 
 galleryContainer.addEventListener('click', onGalleryContainerClick)
-
-function onGalleryContainerClick(event) {
-    
+function onGalleryContainerClick(event) {   
 if (!event.target.classList.contains('gallery__image')) {return}
-    console.log(event.target.dataset.source)
+  lightboxContainer.classList.add('is-open')
+  lightboxImage.setAttribute('src', `${event.target.dataset.source}`)
+  lightboxImage.setAttribute('alt', `${event.target.getAttribute('alt')}`)
+}
+
+lightboxCloseButton.addEventListener('click', onLightboxCloseButton)
+function onLightboxCloseButton() {
+  lightboxContainer.classList.remove('is-open')
+  lightboxImage.setAttribute('src', '')
+  lightboxImage.setAttribute('alt', '')
 }
