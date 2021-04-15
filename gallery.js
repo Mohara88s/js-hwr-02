@@ -90,17 +90,17 @@ function onKaydown(event) {
 function onArrowRightKaydown() {
   let i = currentLightboxImageIndex() + 1
   if (i === atributesSource.length) { i = 0 }
-  setChangesToLightbox(i)
+  setChangesToLightboxImage(i)
 }
 function onArrowLeftKaydown() {
   let i = currentLightboxImageIndex() - 1
   if (i === -1) { i = atributesSource.length - 1}
-  setChangesToLightbox(i)
+  setChangesToLightboxImage(i)
 }
 function currentLightboxImageIndex() {
   return atributesSource.indexOf(atributesSource.find(element => element.original === lightboxImage.src))
 }
-function setChangesToLightbox(index) {
+function setChangesToLightboxImage(index) {
   lightboxImage.setAttribute('src', atributesSource[index].original)
   lightboxImage.setAttribute('alt', atributesSource[index].description)
  }
