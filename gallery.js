@@ -55,8 +55,8 @@ function onGalleryImageClick(event) {
   lightboxImage.setAttribute('alt', `${event.target.getAttribute('alt')}`)
 
   window.addEventListener('keydown', onKaydown)
-  lightboxCloseButton.addEventListener('click', onlightboxCloseButtoClick)
-  lightboxContainer.addEventListener('click', onlightboxOverlayClick)
+  lightboxCloseButton.addEventListener('click', onLightboxCloseButtoClick)
+  lightboxContainer.addEventListener('click', onLightboxOverlayClick)
 }
 
 //to close modal
@@ -66,15 +66,15 @@ function lightboxClose() {
   lightboxImage.setAttribute('alt', '')
 
   window.removeEventListener('keydown', onKaydown)
-  lightboxCloseButton.removeEventListener('click', onlightboxCloseButtoClick)
-  lightboxContainer.removeEventListener('click', onlightboxOverlayClick)
+  lightboxCloseButton.removeEventListener('click', onLightboxCloseButtoClick)
+  lightboxContainer.removeEventListener('click', onLightboxOverlayClick)
 }
 
 //onClick
-function onlightboxCloseButtoClick() {
+function onLightboxCloseButtoClick() {
   lightboxClose()
 }
-function onlightboxOverlayClick(event) {
+function onLightboxOverlayClick(event) {
   if (event.target.classList.contains('lightbox__overlay')) {lightboxClose()}
 }
 
