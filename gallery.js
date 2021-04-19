@@ -98,7 +98,7 @@ function onArrowLeftKeydown() {
   setChangesToLightboxImage(i)
 }
 function currentLightboxImageIndex() {
-  return atributesSource.indexOf(atributesSource.find(element => element.original === lightboxImage.src))
+  return atributesSource.findIndex(element => element.original === lightboxImage.src)
 }
 function setChangesToLightboxImage(index) {
   lightboxImage.setAttribute('src', atributesSource[index].original)
